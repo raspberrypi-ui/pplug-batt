@@ -1,13 +1,10 @@
 <?xml version="1.0"?>
 <wf-panel-pi>
-	<plugin name="panel">
-	<_short>Panel</_short>
+  <plugin name="batt">
 	<group>
-	<_short>Battery</_short>
-	<option name="batt_batt_num" type="int">
-		<_short>Battery Battery Number</_short>
+	  <option name="batt_num" type="int">
 		<default>0</default>
-	</option>
+	  </option>
 	</group>
-	</plugin>
+  </plugin>
 </wf-panel-pi>

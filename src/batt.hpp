@@ -45,7 +45,7 @@ class WayfireBatt : public WayfireWidget
 
     sigc::connection icon_timer;
 
-    WfOption <int> batt_num {"panel/batt_batt_num"};
+    WfOption <int> batt_num {"batt/batt_num"};
 
     /* plugin */
     PtBattPlugin *pt;
