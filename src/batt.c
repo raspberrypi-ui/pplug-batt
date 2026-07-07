@@ -300,7 +300,7 @@ void batt_init (PtBattPlugin *pt)
 
     /* Set up button */
 #ifndef LXPLUG
-    add_long_press (pt->plugin, NULL, NULL);
+    pt->gesture = add_long_press (pt->plugin, NULL, NULL);
 #endif
 
     /* Load the symbols */
@@ -317,6 +317,10 @@ void batt_init (PtBattPlugin *pt)
 void batt_destructor (gpointer user_data)
 {
     PtBattPlugin *pt = (PtBattPlugin *) user_data;
+
+#ifndef LXPLUG
+    if (pt->gesture) g_object_unref (pt->gesture);
+#endif
 
     /* Disconnect the timer */
     if (pt->timer) g_source_remove (pt->timer);

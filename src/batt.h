@@ -34,10 +34,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef struct 
 {
     GtkWidget *plugin;
-
 #ifdef LXPLUG
     LXPanel *panel;                 /* Back pointer to panel */
     config_setting_t *settings;     /* Plugin settings */
+#else
+    GtkGesture *gesture;
 #endif
 
     GtkWidget *tray_icon;           /* Displayed image */
