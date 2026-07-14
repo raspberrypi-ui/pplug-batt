@@ -37,7 +37,7 @@ extern "C" {
 #include "batt.h"
 }
 
-class WayfireBatt : public WayfireWidget
+class WidgetBatt : public PanelWidget
 {
     std::unique_ptr <Gtk::Button> plugin;
 
@@ -51,7 +51,7 @@ class WayfireBatt : public WayfireWidget
   public:
 
     void init (Gtk::HBox *container) override;
-    virtual ~WayfireBatt ();
+    virtual ~WidgetBatt ();
     bool set_icon (void);
     void read_settings (void);
     void settings_changed_cb (void);
