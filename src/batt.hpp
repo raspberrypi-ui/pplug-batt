@@ -43,8 +43,6 @@ class WidgetBatt : public PanelWidget
 
     sigc::connection icon_timer;
 
-    WfOption <int> batt_num {"batt/batt_num"};
-
     /* plugin */
     PtBattPlugin *pt;
 
@@ -54,7 +52,7 @@ class WidgetBatt : public PanelWidget
     virtual ~WidgetBatt ();
     bool set_icon (void);
     void read_settings (void);
-    void settings_changed_cb (void);
+    void handle_config_reload (void);
 };
 
 #endif /* end of include guard: WIDGETS_BATT_HPP */

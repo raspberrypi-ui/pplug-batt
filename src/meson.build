@@ -36,8 +36,3 @@ shared_module('lib' + meson.project_name(), [ lsources, wsources ],
         cpp_args : wargs,
         name_prefix: ''
 )
-
-metadata = files(
-  'batt.xml'
-)
-install_data(metadata, install_dir: metadata_dir)

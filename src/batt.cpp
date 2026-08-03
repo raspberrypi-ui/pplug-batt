@@ -45,12 +45,15 @@ bool WidgetBatt::set_icon (void)
 
 void WidgetBatt::read_settings (void)
 {
-    pt->batt_num = batt_num;
+    conf_table[0].value = (void *) &pt->batt_num;
+
+    load_configuration_data (PLUGIN_NAME, conf_table);
 }
 
-void WidgetBatt::settings_changed_cb (void)
+void WidgetBatt::handle_config_reload (void)
 {
-    read_settings ();
+    load_configuration_data (PLUGIN_NAME, conf_table);
+
     batt_set_num (pt);
 }
 
@@ -69,9 +72,6 @@ void WidgetBatt::init (Gtk::HBox *container)
     /* Initialise the plugin */
     read_settings ();
     batt_init (pt);
-
-    /* Setup callbacks */
-    batt_num.set_callback (sigc::mem_fun (*this, &WidgetBatt::settings_changed_cb));
 }
 
 WidgetBatt::~WidgetBatt()

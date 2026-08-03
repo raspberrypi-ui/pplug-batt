@@ -58,8 +58,8 @@ typedef enum
 /*----------------------------------------------------------------------------*/
 
 conf_table_t conf_table[2] = {
-    {CONF_TYPE_INT,  "batt_num", N_("Battery number to monitor"),   NULL},
-    {CONF_TYPE_NONE, NULL,       NULL,                              NULL}
+    {CONF_TYPE_INT,  "batt_num", N_("Battery number to monitor"),   NULL,   "0" },
+    {CONF_TYPE_NONE, NULL,       NULL,                              NULL,   NULL}
 };
 
 /*----------------------------------------------------------------------------*/
