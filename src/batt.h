@@ -58,6 +58,7 @@ extern conf_table_t conf_table[2];
 /*----------------------------------------------------------------------------*/
 
 extern void batt_init (PtBattPlugin *pt);
+extern void batt_set_values (PtBattPlugin *pt);
 extern void batt_update_display (PtBattPlugin *pt);
 extern void batt_set_num (PtBattPlugin *pt);
 extern void batt_destructor (gpointer user_data);

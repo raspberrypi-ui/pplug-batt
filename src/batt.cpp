@@ -43,18 +43,9 @@ bool WidgetBatt::set_icon (void)
     return false;
 }
 
-void WidgetBatt::read_settings (void)
-{
-    conf_table[0].value = (void *) &pt->batt_num;
-
-    load_configuration_data (PLUGIN_NAME, conf_table);
-}
-
 void WidgetBatt::handle_config_reload (void)
 {
-    load_configuration_data (PLUGIN_NAME, conf_table);
-
-    batt_set_num (pt);
+    if (load_configuration_data (PLUGIN_NAME, conf_table)) batt_set_num (pt);
 }
 
 void WidgetBatt::init (Gtk::HBox *container)
@@ -70,7 +61,8 @@ void WidgetBatt::init (Gtk::HBox *container)
     icon_timer = Glib::signal_idle().connect (sigc::mem_fun (*this, &WidgetBatt::set_icon));
 
     /* Initialise the plugin */
-    read_settings ();
+    batt_set_values (pt);
+    load_configuration_data (PLUGIN_NAME, conf_table);
     batt_init (pt);
 }
 

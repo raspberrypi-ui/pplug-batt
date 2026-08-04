@@ -276,6 +276,11 @@ void batt_update_display (PtBattPlugin *pt)
     update_icon (pt);
 }
 
+void batt_set_values (PtBattPlugin *pt)
+{
+    conf_table[0].value = (void *) &pt->batt_num;
+}
+
 /* Handler for battery number update from variable watcher */
 void batt_set_num (PtBattPlugin *pt)
 {
@@ -345,14 +350,12 @@ static GtkWidget *ptbatt_constructor (LXPanel *panel, config_setting_t *settings
     pt->plugin = gtk_event_box_new ();
     lxpanel_plugin_set_data (pt->plugin, pt, batt_destructor);
 
-    /* Set config defaults */
-    pt->batt_num = 0;
-
     /* Read config */
-    conf_table[0].value = (void *) &pt->batt_num;
+    batt_set_values (pt);
     lxplug_read_settings (pt->settings, conf_table);
 
     batt_init (pt);
+
     return pt->plugin;
 }
 
