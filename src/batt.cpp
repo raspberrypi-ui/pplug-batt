@@ -37,18 +37,17 @@ extern "C" {
     const char *package_name (void) { return GETTEXT_PACKAGE; };
 }
 
-bool WidgetBatt::set_icon (void)
+void WidgetBatt::widget_set_icon (void)
 {
     batt_update_display (pt);
-    return false;
 }
 
-void WidgetBatt::handle_config_reload (void)
+void WidgetBatt::widget_config_reload (void)
 {
     if (load_configuration_data (PLUGIN_NAME, conf_table)) batt_set_num (pt);
 }
 
-void WidgetBatt::init (Gtk::HBox *container)
+void WidgetBatt::widget_init (Gtk::HBox *container)
 {
     /* Create the button */
     plugin = std::make_unique <Gtk::Button> ();
@@ -58,7 +57,6 @@ void WidgetBatt::init (Gtk::HBox *container)
     /* Setup structure */
     pt = g_new0 (PtBattPlugin, 1);
     pt->plugin = (GtkWidget *)((*plugin).gobj());
-    icon_timer = Glib::signal_idle().connect (sigc::mem_fun (*this, &WidgetBatt::set_icon));
 
     /* Initialise the plugin */
     batt_set_values (pt);
@@ -68,7 +66,6 @@ void WidgetBatt::init (Gtk::HBox *container)
 
 WidgetBatt::~WidgetBatt()
 {
-    icon_timer.disconnect ();
     batt_destructor (pt);
 }
 
