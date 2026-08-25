@@ -27,14 +27,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <locale.h>
 #include <glib/gi18n.h>
-#include "batt_sys.h"
 
-#ifdef LXPLUG
 #include "plugin.h"
-#else
-#include "lxutils.h"
-#endif
 
+#include "batt_sys.h"
 #include "batt.h"
 
 /*----------------------------------------------------------------------------*/
@@ -304,9 +300,7 @@ void batt_init (PtBattPlugin *pt)
     gtk_container_add (GTK_CONTAINER (pt->plugin), pt->tray_icon);
 
     /* Set up button */
-#ifndef LXPLUG
-    pt->gesture = add_long_press (pt->plugin, NULL, NULL);
-#endif
+    wrap_add_longpress (pt->gesture, pt->plugin, NULL, NULL);
 
     /* Load the symbols */
     pt->plug = gdk_pixbuf_new_from_file (PACKAGE_DATA_DIR "/images/plug.png", NULL);
@@ -323,81 +317,13 @@ void batt_destructor (gpointer user_data)
 {
     PtBattPlugin *pt = (PtBattPlugin *) user_data;
 
-#ifndef LXPLUG
-    if (pt->gesture) g_object_unref (pt->gesture);
-#endif
+    wrap_free_gesture (pt->gesture);
 
     /* Disconnect the timer */
     if (pt->timer) g_source_remove (pt->timer);
 
     g_free (pt);
 }
-
-/*----------------------------------------------------------------------------*/
-/* LXPanel plugin functions                                                   */
-/*----------------------------------------------------------------------------*/
-#ifdef LXPLUG
-
-/* Constructor */
-static GtkWidget *ptbatt_constructor (LXPanel *panel, config_setting_t *settings)
-{
-    /* Allocate and initialize plugin context */
-    PtBattPlugin *pt = g_new0 (PtBattPlugin, 1);
-
-    /* Allocate top level widget and set into plugin widget pointer. */
-    pt->panel = panel;
-    pt->settings = settings;
-    pt->plugin = gtk_event_box_new ();
-    lxpanel_plugin_set_data (pt->plugin, pt, batt_destructor);
-
-    /* Read config */
-    batt_set_values (pt);
-    lxplug_read_settings (pt->settings, conf_table);
-
-    batt_init (pt);
-
-    return pt->plugin;
-}
-
-/* Handler for system config changed message from panel */
-static void ptbatt_configuration_changed (LXPanel *, GtkWidget *plugin)
-{
-    PtBattPlugin *pt = lxpanel_plugin_get_data (plugin);
-    batt_update_display (pt);
-}
-
-/* Apply changes from config dialog */
-static gboolean ptbatt_apply_configuration (gpointer user_data)
-{
-    PtBattPlugin *pt = lxpanel_plugin_get_data (GTK_WIDGET (user_data));
-
-    lxplug_write_settings (pt->settings, conf_table);
-
-    batt_set_num (pt);
-    return FALSE;
-}
-
-/* Display configuration dialog */
-static GtkWidget *ptbatt_configure (LXPanel *panel, GtkWidget *plugin)
-{
-    return lxpanel_generic_config_dlg_new (_(PLUGIN_TITLE), panel,
-        ptbatt_apply_configuration, plugin,
-        conf_table);
-}
-
-int module_lxpanel_gtk_version = 1;
-char module_name[] = PLUGIN_NAME;
-
-/* Plugin descriptor. */
-LXPanelPluginInit fm_module_init_lxpanel_gtk = {
-    .name = PLUGIN_TITLE,
-    .description = N_("Monitors laptop battery"),
-    .new_instance = ptbatt_constructor,
-    .reconfigure = ptbatt_configuration_changed,
-    .config = ptbatt_configure,
-    .gettext_package = GETTEXT_PACKAGE
-};
-#endif
 
 /* End of file */
 /*----------------------------------------------------------------------------*/

@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <gtkmm/button.h>
 
 extern "C" {
-#include "lxutils.h"
+#include "plugin.h"
 #include "batt_sys.h"
 #include "batt.h"
 }
