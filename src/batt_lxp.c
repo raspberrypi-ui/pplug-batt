@@ -69,9 +69,7 @@ static void ptbatt_configuration_changed (LXPanel *, GtkWidget *plugin)
 static gboolean ptbatt_apply_configuration (gpointer user_data)
 {
     PtBattPlugin *pt = lxpanel_plugin_get_data (GTK_WIDGET (user_data));
-
     lxplug_write_settings (pt->settings, conf_table);
-
     batt_set_num (pt);
     return FALSE;
 }
@@ -90,11 +88,11 @@ char module_name[] = PLUGIN_NAME;
 /* Plugin descriptor. */
 LXPanelPluginInit fm_module_init_lxpanel_gtk = {
     .name = PLUGIN_TITLE,
+    .gettext_package = GETTEXT_PACKAGE,
     .description = N_("Monitors laptop battery"),
     .new_instance = ptbatt_constructor,
     .reconfigure = ptbatt_configuration_changed,
-    .config = ptbatt_configure,
-    .gettext_package = GETTEXT_PACKAGE
+    .config = ptbatt_configure
 };
 
 /* End of file */
