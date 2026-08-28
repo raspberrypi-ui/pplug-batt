@@ -34,13 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 typedef struct 
 {
     GtkWidget *plugin;
-#ifdef LXPLUG
-    LXPanel *panel;                 /* Back pointer to panel */
-    config_setting_t *settings;     /* Plugin settings */
-#else
     GtkGesture *gesture;
-#endif
-
     GtkWidget *tray_icon;           /* Displayed image */
     battery *batt;
     GdkPixbuf *plug;
@@ -49,6 +43,7 @@ typedef struct
     guint vtimer;
     int batt_num;
     gboolean simulate;
+    LXPLUG_VARS
 } PtBattPlugin;
 
 extern conf_table_t conf_table[2];
