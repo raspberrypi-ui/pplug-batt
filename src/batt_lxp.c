@@ -30,7 +30,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "plugin.h"
 
-#include "batt_sys.h"
 #include "batt.h"
 
 /*----------------------------------------------------------------------------*/

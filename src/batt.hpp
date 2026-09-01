@@ -29,11 +29,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define WIDGETS_BATT_HPP
 
 #include <widget.hpp>
-#include <gtkmm/button.h>
+#include <gtkmm/eventbox.h>
 
 extern "C" {
 #include "plugin.h"
-#include "batt_sys.h"
 #include "batt.h"
 }
 
@@ -41,7 +40,7 @@ class WidgetBatt : public PanelWidget
 {
     PtBattPlugin *pt;
 
-    std::unique_ptr <Gtk::Button> plugin;
+    std::unique_ptr <Gtk::EventBox> plugin;
 
   public:
 
