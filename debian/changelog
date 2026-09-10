@@ -1,3 +1,9 @@
+pplug-batt (1.10) trixie; urgency=medium
+
+  * Fix menu offset
+
+ -- Simon Long <simon@raspberrypi.com>  Thu, 10 Sep 2026 16:23:09 +0100
+
 pplug-batt (1.9) trixie; urgency=medium
 
   * Version bump for build

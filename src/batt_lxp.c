@@ -45,7 +45,7 @@ static GtkWidget *ptbatt_constructor (LXPanel *panel, config_setting_t *settings
     /* Allocate top level widget and set into plugin widget pointer. */
     pt->panel = panel;
     pt->settings = settings;
-    pt->plugin = gtk_event_box_new ();
+    pt->plugin = gtk_button_new ();
     lxpanel_plugin_set_data (pt->plugin, pt, batt_destructor);
 
     /* Read config */
