@@ -32,6 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------*/
 
 #define PLUGIN_TITLE N_("Battery")
+#define PLUGIN_DESC N_("Monitors laptop battery")
 
 typedef struct 
 {

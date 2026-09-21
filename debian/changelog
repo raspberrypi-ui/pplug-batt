@@ -1,3 +1,9 @@
+pplug-batt (1.11) trixie; urgency=medium
+
+  * Add tooltip for widget browser
+
+ -- Simon Long <simon@raspberrypi.com>  Mon, 21 Sep 2026 09:43:01 +0100
+
 pplug-batt (1.10) trixie; urgency=medium
 
   * Fix menu offset
