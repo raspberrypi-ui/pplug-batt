@@ -201,6 +201,7 @@ static void draw_icon (PtBattPlugin *pt, int lev, float r, float g, float b, int
 
     g_object_unref (pixbuf);
     cairo_destroy (cr);
+    cairo_surface_destroy (surface);
 }
 
 /* Read the current charge state and update the icon accordingly */
@@ -321,6 +322,10 @@ void batt_destructor (gpointer user_data)
 
     /* Disconnect the timer */
     if (pt->timer) g_source_remove (pt->timer);
+
+    if (pt->batt) battery_free (pt->batt);
+    if (pt->plug) g_object_unref (pt->plug);
+    if (pt->flash) g_object_unref (pt->flash);
 
     g_free (pt);
 }
