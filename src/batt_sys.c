@@ -261,8 +261,12 @@ battery* battery_update(battery *b)
     else if (b->energy_full != -1 && b->energy_now != -1)
         /* no charge data, let try energy instead */
         promille = (b->energy_now * 1000) / b->energy_full;
-    else
-        promille = 0;
+    else {
+        /* no charge or energy data, so use the percentage the driver reports */
+        gctmp = get_gchar_from_infofile(b, "capacity");
+        promille = gctmp ? MAX(atoi(gctmp), 0) * 10 : 0;
+        g_free(gctmp);
+    }
 
     b->percentage = (promille + 5) / 10; /* round properly */
     if (b->percentage > 100)
